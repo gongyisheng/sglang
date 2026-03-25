@@ -200,7 +200,9 @@ class BaseTpWorker(ABC):
             )
             tensors = dict(bucket.reconstruct_tensors())
         else:
-            tensors = MultiprocessingSerializer.deserialize(recv_req.serialized_tensors[self.tp_rank])
+            tensors = MultiprocessingSerializer.deserialize(
+                recv_req.serialized_tensors[self.tp_rank]
+            )
         result = self.model_runner.load_lora_adapter_from_tensors(
             recv_req.to_ref(),
             tensors,
