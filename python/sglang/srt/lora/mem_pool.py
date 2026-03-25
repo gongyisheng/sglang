@@ -599,9 +599,9 @@ class LoRAMemoryPool:
 
                 if name in ["gate_up_proj_moe", "down_proj_moe"]:
                     # MoE: multiple tensors per module (one per expert)
-                    # if not weights:
-                    #     target_buffer[buffer_id].zero_()
-                    #     continue
+                    if not weights:
+                        target_buffer[buffer_id].zero_()
+                        continue
                     for expert_id, expert_weight in weights.items():
                         # Buffer shape: [num_loras, num_experts, max_rank, hidden_dim]
                         buffer_view = target_buffer[
@@ -619,9 +619,9 @@ class LoRAMemoryPool:
 
                 if name in ["gate_up_proj_moe", "down_proj_moe"]:
                     # MoE: multiple tensors per module (one per expert)
-                    # if not weights:
-                    #     target_buffer[buffer_id].zero_()
-                    #     continue
+                    if not weights:
+                        target_buffer[buffer_id].zero_()
+                        continue
                     for expert_id, expert_weight in weights.items():
                         # Buffer shape: [num_loras, num_experts, intermediate_dim, max_rank]
                         buffer_view = target_buffer[buffer_id, expert_id, :, :lora_rank]
